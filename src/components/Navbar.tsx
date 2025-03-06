@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown, Phone, Mail } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -39,9 +38,9 @@ const Navbar = () => {
                 <Phone size={14} />
                 <span>+372 5555 5555</span>
               </a>
-              <a href="mailto:info@tactical-elite.ee" className="flex items-center space-x-2 hover:text-white transition-colors">
+              <a href="mailto:info@baldeagletactical.ee" className="flex items-center space-x-2 hover:text-white transition-colors">
                 <Mail size={14} />
-                <span>info@tactical-elite.ee</span>
+                <span>info@baldeagletactical.ee</span>
               </a>
             </div>
             <div className="text-sm text-tactical-300">
@@ -60,14 +59,14 @@ const Navbar = () => {
               className="flex items-center space-x-3"
             >
               <div className="flex items-center justify-center w-10 h-10 bg-brandRed rounded">
-                <span className="font-military font-bold text-white text-lg">TE</span>
+                <span className="font-military font-bold text-white text-lg">BE</span>
               </div>
               <div className="flex flex-col">
                 <span className="font-military font-bold text-xl tracking-wider text-white">
-                  TACTICAL ELITE
+                  BALD EAGLE
                 </span>
                 <span className="text-xs uppercase tracking-widest text-tactical-300">
-                  ESTONIA
+                  TACTICAL
                 </span>
               </div>
             </Link>
@@ -102,17 +101,14 @@ const Navbar = () => {
                   onMouseEnter={() => setIsCoursesDropdownOpen(true)}
                   onMouseLeave={() => setIsCoursesDropdownOpen(false)}
                 >
-                  <Link to="/courses#basic" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    Basic Combat Training
+                  <Link to="/courses#tactical-seminars" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
+                    Tactical Seminars
                   </Link>
-                  <Link to="/courses#advanced" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    Advanced Firearms Handling
+                  <Link to="/courses#private-security" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
+                    Private Security
                   </Link>
-                  <Link to="/courses#executive" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    Executive Protection
-                  </Link>
-                  <Link to="/courses#vip" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    VIP Close Protection
+                  <Link to="/accessibility" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
+                    Accessibility Statement
                   </Link>
                 </div>
               )}
@@ -125,15 +121,6 @@ const Navbar = () => {
               } transition-colors duration-200`}
             >
               ABOUT US
-            </Link>
-            
-            <Link 
-              to="/facilities" 
-              className={`text-sm font-medium tracking-wide ${
-                location.pathname === '/facilities' ? 'text-white' : 'text-tactical-200 hover:text-white'
-              } transition-colors duration-200`}
-            >
-              FACILITIES
             </Link>
             
             <Link 
@@ -181,32 +168,25 @@ const Navbar = () => {
               {isCoursesDropdownOpen && (
                 <div className="pl-4 flex flex-col space-y-2 border-l border-tactical-700">
                   <Link 
-                    to="/courses#basic" 
+                    to="/courses#tactical-seminars" 
                     className="text-sm text-tactical-300 hover:text-white transition-colors duration-200 py-1"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Basic Combat Training
+                    Tactical Seminars
                   </Link>
                   <Link 
-                    to="/courses#advanced" 
+                    to="/courses#private-security" 
                     className="text-sm text-tactical-300 hover:text-white transition-colors duration-200 py-1"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Advanced Firearms Handling
+                    Private Security
                   </Link>
                   <Link 
-                    to="/courses#executive" 
+                    to="/accessibility" 
                     className="text-sm text-tactical-300 hover:text-white transition-colors duration-200 py-1"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Executive Protection
-                  </Link>
-                  <Link 
-                    to="/courses#vip" 
-                    className="text-sm text-tactical-300 hover:text-white transition-colors duration-200 py-1"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    VIP Close Protection
+                    Accessibility Statement
                   </Link>
                 </div>
               )}
@@ -222,16 +202,6 @@ const Navbar = () => {
               </Link>
               
               <Link 
-                to="/facilities" 
-                className={`py-2 text-sm font-medium tracking-wide ${
-                  location.pathname === '/facilities' ? 'text-white' : 'text-tactical-200'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                FACILITIES
-              </Link>
-              
-              <Link 
                 to="/booking" 
                 className="mt-2 px-4 py-2 bg-brandRed hover:bg-brandRed-hover text-white text-sm font-medium rounded transition-colors duration-300 inline-block"
                 onClick={() => setIsMenuOpen(false)}
@@ -244,9 +214,9 @@ const Navbar = () => {
                   <Phone size={14} />
                   <span>+372 5555 5555</span>
                 </a>
-                <a href="mailto:info@tactical-elite.ee" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
+                <a href="mailto:info@baldeagletactical.ee" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
                   <Mail size={14} />
-                  <span>info@tactical-elite.ee</span>
+                  <span>info@baldeagletactical.ee</span>
                 </a>
               </div>
             </div>
