@@ -28,12 +28,36 @@ interface Course {
 const courses: Course[] = [
   {
     id: 1,
-    name: "2-Day Tactical Training Course",
+    name: "Two-Day Tactical Basics",
     duration: "2 Days",
-    price: 899.99,
-    description: "Intensive 2-day course covering essential tactical skills and firearms handling.",
+    dates: "17-19 March 2025",
+    location: "Estonia",
+    price: 2900,
+    description: "Essential tactical training covering critical skills and firearms handling for beginners and enthusiasts.",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
-    features: ["Basic firearms handling", "Tactical movement", "Situational awareness", "Safety protocols"]
+    features: [],
+    dailyBreakdown: [
+      {
+        day: "Day 1",
+        title: "Tactical Foundations",
+        activities: [
+          "Firearm safety, handling, and live-fire basics",
+          "Dry fire drills and fundamental tactics",
+          "Krav Maga: Essential self-defense moves",
+          "First aid: Critical life-saving skills"
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Tactical Confidence",
+        activities: [
+          "Live-fire drills for accuracy and control",
+          "Team exercises for tactical awareness",
+          "Krav Maga: Disarming and close combat",
+          "Final review and Q&A"
+        ]
+      }
+    ]
   },
   {
     id: 2,
