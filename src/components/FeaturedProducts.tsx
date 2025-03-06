@@ -1,15 +1,28 @@
+
 import { useState, useEffect, useRef } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Calendar, MapPin, Clock, EuroIcon, ShieldCheck, Utensils, Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface Course {
   id: number;
   name: string;
   duration: string;
+  dates?: string;
+  location?: string;
   price: number;
   description: string;
   image: string;
   features: string[];
+  dailyBreakdown?: {
+    day: string;
+    title: string;
+    activities: string[];
+  }[];
+  inclusions?: {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+  }[];
 }
 
 const courses: Course[] = [
@@ -24,12 +37,78 @@ const courses: Course[] = [
   },
   {
     id: 2,
-    name: "5-Day Advanced Operations Course",
+    name: "Five-Day Tactical Masterclass",
     duration: "5 Days",
-    price: 2499.99,
-    description: "Comprehensive 5-day program for advanced tactical operations and security procedures.",
+    dates: "March 23-27, 2025",
+    location: "Estonia",
+    price: 5700,
+    description: "Expert tactical training focusing on strategy, leadership, and security.",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
-    features: ["Advanced firearms training", "Close-quarters combat", "Team tactics", "Night operations", "Scenario-based training"]
+    features: ["Advanced firearms training", "Close-quarters combat", "Team tactics", "Night operations", "Scenario-based training"],
+    dailyBreakdown: [
+      {
+        day: "Day 1",
+        title: "Tactical Foundations",
+        activities: [
+          "Firearm safety, discipline, and fundamentals",
+          "Dry fire, live-fire drills, and self-defense basics",
+          "First aid: Rapid emergency response"
+        ]
+      },
+      {
+        day: "Day 2",
+        title: "Core Skills",
+        activities: [
+          "Accuracy-focused live-fire drills",
+          "Team coordination and tactical fitness",
+          "Krav Maga: Disarming and close combat"
+        ]
+      },
+      {
+        day: "Day 3",
+        title: "High-Pressure Training",
+        activities: [
+          "Decision-making under fire",
+          "Group tactics and multiple attackers",
+          "Tactical first aid techniques"
+        ]
+      },
+      {
+        day: "Day 4",
+        title: "Advanced Tactics",
+        activities: [
+          "Moving, shooting, and cover use",
+          "Real-world team exercises and leadership",
+          "Krav Maga: Offensive and defensive transitions"
+        ]
+      },
+      {
+        day: "Day 5",
+        title: "Final Challenge",
+        activities: [
+          "Full-scale tactical simulations",
+          "Timed drills and stress-based self-defense",
+          "Debrief and key lessons"
+        ]
+      }
+    ],
+    inclusions: [
+      {
+        icon: <ShieldCheck size={20} className="text-brandRed" />,
+        title: "Accommodation",
+        description: "Comfortable accommodation in a private room for five nights at the Hestia Hotel Strand with premium amenities."
+      },
+      {
+        icon: <Truck size={20} className="text-brandRed" />,
+        title: "Transportation",
+        description: "All seminar-related transportation included, making travel between locations hassle-free."
+      },
+      {
+        icon: <Utensils size={20} className="text-brandRed" />,
+        title: "Meals",
+        description: "Daily nutritious and well-balanced meals provided throughout the seminar."
+      }
+    ]
   }
 ];
 
@@ -107,19 +186,81 @@ const FeaturedProducts = () => {
               
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white mb-2">{course.name}</h3>
+                
+                {course.dates && (
+                  <div className="flex items-center text-tactical-100 mb-2">
+                    <Calendar size={16} className="mr-2 text-brandRed" />
+                    <span>{course.dates}</span>
+                  </div>
+                )}
+                
+                {course.location && (
+                  <div className="flex items-center text-tactical-100 mb-2">
+                    <MapPin size={16} className="mr-2 text-brandRed" />
+                    <span>{course.location}</span>
+                  </div>
+                )}
+                
                 <p className="text-tactical-200 mb-4">{course.description}</p>
                 
-                <ul className="space-y-2 mb-6">
-                  {course.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-tactical-100">
-                      <ChevronRight size={16} className="text-brandRed mr-2" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                {course.dailyBreakdown ? (
+                  <div className="mb-6">
+                    <h4 className="text-white font-bold mb-3">Course Breakdown:</h4>
+                    <div className="space-y-3">
+                      {course.dailyBreakdown.slice(0, 2).map((day, i) => (
+                        <div key={i} className="border-l-2 border-brandRed pl-3">
+                          <div className="flex items-center mb-1">
+                            <Clock size={14} className="text-brandRed mr-2" />
+                            <span className="text-white font-medium">{day.day}: {day.title}</span>
+                          </div>
+                          <ul className="text-tactical-200 text-sm">
+                            {day.activities.map((activity, j) => (
+                              <li key={j} className="flex items-start">
+                                <ChevronRight size={14} className="text-brandRed mr-1 mt-1 flex-shrink-0" />
+                                <span>{activity}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                      {course.dailyBreakdown.length > 2 && (
+                        <Link to="/courses" className="text-sm text-brandRed hover:text-brandRed-hover flex items-center">
+                          <span>See full course details</span>
+                          <ChevronRight size={14} className="ml-1" />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <ul className="space-y-2 mb-6">
+                    {course.features.map((feature, i) => (
+                      <li key={i} className="flex items-center text-tactical-100">
+                        <ChevronRight size={16} className="text-brandRed mr-2" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                
+                {course.inclusions && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                    {course.inclusions.map((inclusion, i) => (
+                      <div key={i} className="bg-tactical-700/50 p-3 rounded">
+                        <div className="flex items-center mb-1">
+                          {inclusion.icon}
+                          <span className="text-white text-sm font-medium ml-2">{inclusion.title}</span>
+                        </div>
+                        <p className="text-tactical-200 text-xs">{inclusion.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 
                 <div className="flex items-center justify-between">
-                  <div className="text-2xl font-bold text-white">${course.price.toFixed(2)}</div>
+                  <div className="flex items-center">
+                    <EuroIcon size={18} className="text-white mr-1" />
+                    <div className="text-2xl font-bold text-white">{course.price.toLocaleString('en-US')}</div>
+                  </div>
                   <Link 
                     to="/booking" 
                     className="bg-brandRed hover:bg-brandRed-hover text-white px-6 py-2 rounded transition-colors duration-200"

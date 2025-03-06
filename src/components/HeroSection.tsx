@@ -54,7 +54,7 @@ const HeroSection = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-military font-bold text-white hero-text-shadow leading-tight animate-fade-up tracking-wider">
               MASTER TACTICAL SKILLS. <br className="hidden md:block" />
               PERFORM UNDER PRESSURE. <br className="hidden md:block" />
-              <span className="text-gradient">BE UNSTOPPABLE.</span>
+              <span className="text-gradient">SHARPEN YOUR AX.</span>
             </h1>
             
             <p className="text-lg text-tactical-100 max-w-xl animate-fade-up" style={{ animationDelay: '200ms' }}>
