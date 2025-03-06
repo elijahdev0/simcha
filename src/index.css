@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Saira+Semi+Condensed:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -25,7 +25,7 @@
     --muted: 220 10% 22%;
     --muted-foreground: 220 10% 65%;
 
-    --accent: 220 68% 54%;
+    --accent: 0 100% 40%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -69,18 +69,34 @@
 }
 
 .hero-gradient {
-  background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--background)) 100%);
+  background: linear-gradient(90deg, rgba(12,17,31,0.95) 0%, rgba(12,17,31,0.8) 100%);
 }
 
 .hero-text-shadow {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.product-card-hover {
+.course-card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.product-card-hover:hover {
+.course-card-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.divider {
+  @apply w-20 h-1 bg-brandRed my-4;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-6 py-3 bg-brandRed hover:bg-brandRed-hover text-white font-medium rounded transition-colors duration-300 shadow-lg;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-6 py-3 bg-transparent hover:bg-tactical-800/50 text-white border border-tactical-700 rounded transition-colors duration-300;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent;
 }
