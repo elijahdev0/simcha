@@ -1,4 +1,3 @@
-
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-6">
               <img 
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475" 
+                src="/images/logo.png" 
                 alt="Bald Eagle Tactical Logo" 
                 className="h-10 w-auto object-contain" 
               />
@@ -27,27 +26,27 @@ const Footer = () => {
             </div>
             
             <p className="text-tactical-300 mb-6">
-              Premium tactical equipment for professionals and enthusiasts. Quality you can trust when it matters most.
+              You are an Axe that needs sharpening. We provide the whetstone for your development, ensuring you're always at your peak performance.
             </p>
             
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail size={18} className="text-tactical-400" />
-                <a href="mailto:info@baldeagletactical.com" className="hover:text-white transition-colors duration-200">
-                  info@baldeagletactical.com
+                <a href="mailto:Menahem@baldeagletactical.com" className="hover:text-white transition-colors duration-200">
+                  Menahem@baldeagletactical.com
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={18} className="text-tactical-400" />
-                <a href="tel:+1234567890" className="hover:text-white transition-colors duration-200">
-                  (123) 456-7890
+                <a href="tel:+447982369701" className="hover:text-white transition-colors duration-200">
+                  +44 7982 369701
                 </a>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin size={18} className="text-tactical-400 mt-1" />
                 <span>
-                  123 Tactical Way<br />
-                  Anytown, USA 12345
+                  S-Arms Shooting Range<br />
+                  Tallinn, Estonia
                 </span>
               </div>
             </div>
@@ -58,8 +57,8 @@ const Footer = () => {
             <h3 className="text-lg font-medium text-white mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/shop" className="hover:text-white transition-colors duration-200">
-                  Shop
+                <Link to="/courses" className="hover:text-white transition-colors duration-200">
+                  Courses
                 </Link>
               </li>
               <li>
@@ -68,13 +67,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="hover:text-white transition-colors duration-200">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="hover:text-white transition-colors duration-200">
-                  Blog
+                <Link to="/booking" className="hover:text-white transition-colors duration-200">
+                  Book Training
                 </Link>
               </li>
               <li>
@@ -94,16 +88,6 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-medium text-white mb-6">Categories</h3>
             <ul className="space-y-3">
-              <li>
-                <Link to="/category/firearms" className="hover:text-white transition-colors duration-200">
-                  Firearms
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/ammunition" className="hover:text-white transition-colors duration-200">
-                  Ammunition
-                </Link>
-              </li>
               <li>
                 <Link to="/category/accessories" className="hover:text-white transition-colors duration-200">
                   Accessories
@@ -146,17 +130,39 @@ const Footer = () => {
             </div>
             
             <div className="flex space-x-4">
-              <a href="#" className="text-tactical-400 hover:text-white transition-colors duration-200">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-tactical-400 hover:text-white transition-colors duration-200">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-tactical-400 hover:text-white transition-colors duration-200">
+              <a 
+                href="https://www.instagram.com/bravosix_631" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-tactical-400 hover:text-white transition-colors duration-200"
+              >
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-tactical-400 hover:text-white transition-colors duration-200">
+              <a 
+                href="https://x.com/baldegltactical" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-tactical-400 hover:text-white transition-colors duration-200"
+              >
+                <Twitter size={20} />
+              </a>
+              <a 
+                href="https://youtube.com/@mendel-k1k" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-tactical-400 hover:text-white transition-colors duration-200"
+              >
                 <Youtube size={20} />
+              </a>
+              <a 
+                href="https://www.tiktok.com/@baldeagletactical" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-tactical-400 hover:text-white transition-colors duration-200"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 5.2-2.32V9.39a8.66 8.66 0 0 0 5.52 2.05V7.05a6.83 6.83 0 0 1-3.77-1.36z"/>
+                </svg>
               </a>
             </div>
           </div>
@@ -172,13 +178,13 @@ const Footer = () => {
             </div>
             
             <div className="flex space-x-6 text-sm">
-              <Link to="/privacy" className="hover:text-white transition-colors duration-200">
+              <Link to="/privacy-policy" className="hover:text-white transition-colors duration-200">
                 Privacy Policy
               </Link>
               <Link to="/terms" className="hover:text-white transition-colors duration-200">
                 Terms of Service
               </Link>
-              <Link to="/refund" className="hover:text-white transition-colors duration-200">
+              <Link to="/refund-policy" className="hover:text-white transition-colors duration-200">
                 Refund Policy
               </Link>
             </div>

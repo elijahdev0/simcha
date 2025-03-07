@@ -1,33 +1,45 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import FeaturedProducts from './components/FeaturedProducts';
+import About from './components/About';
+import Footer from './components/Footer';
+import Courses from './components/Courses';
+import Booking from './components/Booking';
+import Accessibility from './components/Accessibility';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsAndConditions from './components/TermsAndConditions';
+import TwoDayCourseForm from './components/TwoDayCourseForm';
+import FiveDayCourseForm from './components/FiveDayCourseForm';
+import RefundPolicy from './components/RefundPolicy';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import About from "./pages/About";
-import Courses from "./pages/Courses";
-import Booking from "./pages/Booking";
-import NotFound from "./pages/NotFound";
-
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+function App() {
+  return (
+    <Router>
+      <div className="min-h-screen bg-tactical-950">
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={
+            <>
+              <Hero />
+              <FeaturedProducts />
+              <About />
+            </>
+          } />
           <Route path="/courses" element={<Courses />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/accessibility" element={<Accessibility />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+          <Route path="/two-day-course-registration" element={<TwoDayCourseForm />} />
+          <Route path="/five-day-course-registration" element={<FiveDayCourseForm />} />
+          <Route path="/refund-policy" element={<RefundPolicy />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+        <Footer />
+      </div>
+    </Router>
+  );
+}
 
 export default App;

@@ -34,13 +34,13 @@ const Navbar = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4 text-sm text-tactical-300">
-              <a href="tel:+3725555555" className="flex items-center space-x-2 hover:text-white transition-colors">
+              <a href="tel:+447982369701" className="flex items-center space-x-2 hover:text-white transition-colors">
                 <Phone size={14} />
-                <span>+372 5555 5555</span>
+                <span>+44 7982 369701</span>
               </a>
-              <a href="mailto:info@baldeagletactical.ee" className="flex items-center space-x-2 hover:text-white transition-colors">
+              <a href="mailto:Menahem@baldeagletactical.com" className="flex items-center space-x-2 hover:text-white transition-colors">
                 <Mail size={14} />
-                <span>info@baldeagletactical.ee</span>
+                <span>Menahem@baldeagletactical.com</span>
               </a>
             </div>
             <div className="text-sm text-tactical-300">
@@ -58,16 +58,12 @@ const Navbar = () => {
               to="/" 
               className="flex items-center space-x-3"
             >
-              <div className="flex items-center justify-center w-10 h-10 bg-brandRed rounded">
-                <span className="font-military font-bold text-white text-lg">BE</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-military font-bold text-xl tracking-wider text-white">
-                  BALD EAGLE
-                </span>
-                <span className="text-xs uppercase tracking-widest text-tactical-300">
-                  TACTICAL
-                </span>
+              <div className="flex items-center justify-center w-12 h-12 bg-brandRed rounded">
+                <img 
+                  src="/images/logo.png" 
+                  alt="Bald Eagle Tactical" 
+                  className="w-10 h-10 object-contain"
+                />
               </div>
             </Link>
           </div>
@@ -95,23 +91,25 @@ const Navbar = () => {
                 <ChevronDown size={14} />
               </button>
               
-              {isCoursesDropdownOpen && (
-                <div 
-                  className="absolute top-full left-0 mt-2 w-56 bg-tactical-900 border border-tactical-800 rounded shadow-lg py-2 z-50"
-                  onMouseEnter={() => setIsCoursesDropdownOpen(true)}
-                  onMouseLeave={() => setIsCoursesDropdownOpen(false)}
-                >
-                  <Link to="/courses#tactical-seminars" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    Tactical Seminars
-                  </Link>
-                  <Link to="/courses#private-security" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    Private Security
-                  </Link>
-                  <Link to="/accessibility" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                    Accessibility Statement
-                  </Link>
-                </div>
-              )}
+              <div 
+                className="absolute top-full left-0"
+                onMouseEnter={() => setIsCoursesDropdownOpen(true)}
+                onMouseLeave={() => setIsCoursesDropdownOpen(false)}
+              >
+                {isCoursesDropdownOpen && (
+                  <div className="w-56 bg-tactical-900 border border-tactical-800 rounded shadow-lg py-2 z-50">
+                    <Link to="/courses#tactical-seminars" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
+                      Tactical Seminars
+                    </Link>
+                    <Link to="/courses#private-security" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
+                      Private Security
+                    </Link>
+                    <Link to="/accessibility" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
+                      Accessibility Statement
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
             
             <Link 
@@ -210,13 +208,13 @@ const Navbar = () => {
               </Link>
               
               <div className="pt-4 border-t border-tactical-800 mt-2 space-y-2">
-                <a href="tel:+3725555555" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
+                <a href="tel:+447982369701" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
                   <Phone size={14} />
-                  <span>+372 5555 5555</span>
+                  <span>+44 7982 369701</span>
                 </a>
-                <a href="mailto:info@baldeagletactical.ee" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
+                <a href="mailto:Menahem@baldeagletactical.com" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
                   <Mail size={14} />
-                  <span>info@baldeagletactical.ee</span>
+                  <span>Menahem@baldeagletactical.com</span>
                 </a>
               </div>
             </div>

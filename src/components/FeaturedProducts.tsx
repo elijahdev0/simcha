@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { ChevronRight, Calendar, MapPin, Clock, EuroIcon, ShieldCheck, Utensils, Truck } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -34,7 +33,7 @@ const courses: Course[] = [
     location: "Estonia",
     price: 2900,
     description: "Essential tactical training covering critical skills and firearms handling for beginners and enthusiasts.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+    image: "/images/1.jpeg",
     features: [],
     dailyBreakdown: [
       {
@@ -57,6 +56,23 @@ const courses: Course[] = [
           "Final review and Q&A"
         ]
       }
+    ],
+    inclusions: [
+      {
+        icon: <ShieldCheck size={20} className="text-brandRed" />,
+        title: "Accommodation",
+        description: "Comfortable accommodation in a private room for two nights at the Hestia Hotel Strand with premium amenities."
+      },
+      {
+        icon: <Truck size={20} className="text-brandRed" />,
+        title: "Transportation",
+        description: "All seminar-related transportation included, making travel between locations hassle-free."
+      },
+      {
+        icon: <Utensils size={20} className="text-brandRed" />,
+        title: "Meals",
+        description: "Daily nutritious and well-balanced meals provided throughout the seminar."
+      }
     ]
   },
   {
@@ -67,7 +83,7 @@ const courses: Course[] = [
     location: "Estonia",
     price: 5700,
     description: "Expert tactical training focusing on strategy, leadership, and security.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+    image: "/images/20241128_142359.jpg",
     features: ["Advanced firearms training", "Close-quarters combat", "Team tactics", "Night operations", "Scenario-based training"],
     dailyBreakdown: [
       {
@@ -201,7 +217,8 @@ const FeaturedProducts = () => {
                 <img
                   src={course.image}
                   alt={course.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
+                  style={{ objectPosition: 'center 30%' }}
                 />
                 <div className="absolute top-2 left-2 bg-brandRed px-3 py-1 text-sm font-medium text-white rounded">
                   {course.duration}
