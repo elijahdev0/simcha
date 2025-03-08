@@ -1,65 +1,69 @@
-# Bald Eagle Tactical Website
+# Welcome to your Lovable project
 
-A modern, responsive website for Bald Eagle Tactical, featuring tactical training courses, equipment, and professional development.
+## Project info
 
-## Features
+**URL**: https://lovable.dev/projects/6e2ce576-7341-4cff-ad18-e63dbd389086
 
-- Modern, responsive design
-- Tactical training course booking system
-- Equipment catalog
-- About section with instructor profiles
-- Contact forms
-- Newsletter subscription
-- Social media integration
+## How can I edit this code?
 
-## Tech Stack
+There are several ways of editing your application.
 
-- React
-- TypeScript
-- Tailwind CSS
-- React Router
-- Wix Integration (Payment Processing)
+**Use Lovable**
 
-## Getting Started
+Simply visit the [Lovable Project](https://lovable.dev/projects/6e2ce576-7341-4cff-ad18-e63dbd389086) and start prompting.
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/bald-eagle-tactical.git
-```
+Changes made via Lovable will be committed automatically to this repo.
 
-2. Install dependencies:
-```bash
-npm install
-```
+**Use your preferred IDE**
 
-3. Create a `.env` file in the root directory and add your environment variables:
-```env
-VITE_WIX_API_KEY=your_wix_api_key
-VITE_WIX_SITE_ID=your_wix_site_id
-```
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-4. Start the development server:
-```bash
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-## Wix Integration
+**Edit a file directly in GitHub**
 
-This project is designed to be integrated with Wix for payment processing and additional functionality. To complete the integration:
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-1. Create a Wix site and get your API credentials
-2. Configure the payment processing in your Wix dashboard
-3. Update the environment variables with your Wix credentials
-4. Deploy the site to your preferred hosting platform
+**Use GitHub Codespaces**
 
-## Contributing
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## What technologies are used for this project?
 
-## License
+This project is built with .
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/6e2ce576-7341-4cff-ad18-e63dbd389086) and click on Share -> Publish.
+
+## I want to use a custom domain - is that possible?
+
+We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
