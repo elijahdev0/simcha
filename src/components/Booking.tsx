@@ -18,15 +18,15 @@ const Booking = () => {
             <div className="bg-tactical-800 p-6 rounded-lg border border-tactical-700">
               <h2 className="text-2xl font-bold text-white mb-4">2-Day Tactical Seminar</h2>
               <div className="space-y-4 text-tactical-200">
-                <p><strong>Duration:</strong> 2 days (17th to 19th March)</p>
+                <p><strong>Duration:</strong> 2 days (April 21st to 23rd)</p>
                 <p><strong>Location:</strong> S-Arms Shooting Range, Estonia</p>
                 <p><strong>Accommodation:</strong> Hestia Hotel Strand (private room)</p>
                 <p><strong>Price:</strong> 2900 EUR per participant</p>
                 <div className="mt-4">
                   <p className="text-sm mb-2"><strong>Payment Terms:</strong></p>
                   <ul className="list-disc pl-6 text-sm">
-                    <li>Non-refundable deposit: 1000 EUR</li>
-                    <li>Balance due: 30 days before seminar</li>
+                    <li>Non-refundable deposit: 1000 EUR (due within 10 days of confirmation)</li>
+                    <li>Balance due: 15 days before course start</li>
                   </ul>
                 </div>
               </div>
@@ -42,15 +42,15 @@ const Booking = () => {
             <div className="bg-tactical-800 p-6 rounded-lg border border-tactical-700">
               <h2 className="text-2xl font-bold text-white mb-4">5-Day Tactical Seminar</h2>
               <div className="space-y-4 text-tactical-200">
-                <p><strong>Duration:</strong> 5 days (23rd March to 27th March)</p>
+                <p><strong>Duration:</strong> 5 days (April 27 to May 1)</p>
                 <p><strong>Location:</strong> S-Arms Shooting Range, Estonia</p>
                 <p><strong>Accommodation:</strong> Hestia Hotel Strand (private room)</p>
                 <p><strong>Price:</strong> 5700 EUR per participant</p>
                 <div className="mt-4">
                   <p className="text-sm mb-2"><strong>Payment Terms:</strong></p>
                   <ul className="list-disc pl-6 text-sm">
-                    <li>Non-refundable deposit: 2000 EUR</li>
-                    <li>Balance due: 30 days before seminar</li>
+                    <li>Non-refundable deposit: 1000 EUR (due within 10 days of confirmation)</li>
+                    <li>Balance due: 15 days before course start</li>
                   </ul>
                 </div>
               </div>

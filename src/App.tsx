@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import FeaturedProducts from './components/FeaturedProducts';
@@ -12,6 +12,15 @@ import TermsAndConditions from './components/TermsAndConditions';
 import TwoDayCourseForm from './components/TwoDayCourseForm';
 import FiveDayCourseForm from './components/FiveDayCourseForm';
 import RefundPolicy from './components/RefundPolicy';
+import Index from './pages/Index';
+import LoginForm from './components/auth/LoginForm';
+import Dashboard from './components/dashboard/Dashboard';
+
+// Protected Route component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  return isLoggedIn ? <>{children}</> : <Navigate to="/login" />;
+};
 
 function App() {
   return (
@@ -19,13 +28,16 @@ function App() {
       <div className="min-h-screen bg-tactical-950">
         <Navbar />
         <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <FeaturedProducts />
-              <About />
-            </>
-          } />
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/courses" element={<Courses />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/about" element={<About />} />

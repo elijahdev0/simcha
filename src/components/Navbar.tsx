@@ -7,6 +7,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false);
   const location = useLocation();
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,11 +59,11 @@ const Navbar = () => {
               to="/" 
               className="flex items-center space-x-3"
             >
-              <div className="flex items-center justify-center w-12 h-12 bg-brandRed rounded">
+              <div className="flex items-center justify-center h-14">
                 <img 
                   src="/images/logo.png" 
                   alt="Bald Eagle Tactical" 
-                  className="w-10 h-10 object-contain"
+                  className="h-12 w-auto object-contain"
                 />
               </div>
             </Link>
@@ -120,6 +121,26 @@ const Navbar = () => {
             >
               ABOUT US
             </Link>
+
+            {isLoggedIn ? (
+              <Link 
+                to="/dashboard" 
+                className={`text-sm font-medium tracking-wide ${
+                  location.pathname === '/dashboard' ? 'text-white' : 'text-tactical-200 hover:text-white'
+                } transition-colors duration-200`}
+              >
+                DASHBOARD
+              </Link>
+            ) : (
+              <Link 
+                to="/login" 
+                className={`text-sm font-medium tracking-wide ${
+                  location.pathname === '/login' ? 'text-white' : 'text-tactical-200 hover:text-white'
+                } transition-colors duration-200`}
+              >
+                LOGIN
+              </Link>
+            )}
             
             <Link 
               to="/booking" 
@@ -198,6 +219,28 @@ const Navbar = () => {
               >
                 ABOUT US
               </Link>
+
+              {isLoggedIn ? (
+                <Link 
+                  to="/dashboard" 
+                  className={`py-2 text-sm font-medium tracking-wide ${
+                    location.pathname === '/dashboard' ? 'text-white' : 'text-tactical-200'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  DASHBOARD
+                </Link>
+              ) : (
+                <Link 
+                  to="/login" 
+                  className={`py-2 text-sm font-medium tracking-wide ${
+                    location.pathname === '/login' ? 'text-white' : 'text-tactical-200'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  LOGIN
+                </Link>
+              )}
               
               <Link 
                 to="/booking" 

@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-tactical-950 text-tactical-200">
       {/* Main Footer */}
       <div className="container mx-auto px-4 md:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-6">
@@ -79,33 +79,6 @@ const Footer = () => {
               <li>
                 <Link to="/faq" className="hover:text-white transition-colors duration-200">
                   FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          {/* Categories */}
-          <div>
-            <h3 className="text-lg font-medium text-white mb-6">Categories</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/category/accessories" className="hover:text-white transition-colors duration-200">
-                  Accessories
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/apparel" className="hover:text-white transition-colors duration-200">
-                  Apparel
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/optics" className="hover:text-white transition-colors duration-200">
-                  Optics
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/gear" className="hover:text-white transition-colors duration-200">
-                  Tactical Gear
                 </Link>
               </li>
             </ul>

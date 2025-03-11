@@ -13,14 +13,27 @@ const RefundPolicy = () => {
             <div className="bg-tactical-800 p-6 rounded-lg">
               <h2 className="text-xl font-bold text-white mb-4">Payment Structure</h2>
               <div className="space-y-4">
-                <p><strong>Initial Deposit:</strong> 1000 EUR (non-refundable)</p>
-                <p><strong>Remaining Balance:</strong> 1900 EUR</p>
-                <p><strong>Total Course Fee:</strong> 2900 EUR</p>
-                <p><strong>Payment Deadline:</strong> 30 days prior to seminar start date</p>
+                <p><strong>Two-Day Course:</strong></p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Initial Deposit: 1000 EUR (non-refundable, due within 10 days of confirmation)</li>
+                  <li>Remaining Balance: 1900 EUR (due 15 days before course start)</li>
+                  <li>Total Course Fee: 2900 EUR</li>
+                </ul>
+                <p><strong>Five-Day Course:</strong></p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Initial Deposit: 1000 EUR (non-refundable, due within 10 days of confirmation)</li>
+                  <li>Remaining Balance: 4700 EUR (due 15 days before course start)</li>
+                  <li>Total Course Fee: 5700 EUR</li>
+                </ul>
+                <p><strong>Payment Schedule:</strong></p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Deposit Payment: Within 10 days of registration confirmation</li>
+                  <li>Balance Payment: 15 days before course start date</li>
+                </ul>
               </div>
             </div>
 
-            <div className="bg-tactical-800 p-6 rounded-lg">
+            <div className="bg-tactical-800 p-6 rounded-lg mt-6">
               <h2 className="text-xl font-bold text-white mb-4">Refund Terms</h2>
               <div className="space-y-4">
                 <p><strong>Initial Deposit:</strong></p>
@@ -31,9 +44,9 @@ const RefundPolicy = () => {
 
                 <p><strong>Remaining Balance:</strong></p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Full refund available if cancellation occurs more than 30 days before the seminar start date.</li>
-                  <li>Partial refund (50%) available if cancellation occurs between 15-30 days before the seminar start date.</li>
-                  <li>No refund available for cancellations within 15 days of the seminar start date.</li>
+                  <li>Full refund available if cancellation occurs more than 15 days before the seminar start date.</li>
+                  <li>Partial refund (50%) available if cancellation occurs between 7-15 days before the seminar start date.</li>
+                  <li>No refund available for cancellations within 7 days of the seminar start date.</li>
                 </ul>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import PaymentForm from './PaymentForm';
 
 interface FormData {
   // Participant Information
@@ -19,22 +20,24 @@ interface FormData {
   emergencyPhone: string;
 
   // Medical Information
-  hasMedicalConditions: boolean;
+  hasMedicalConditions: string;
   medicalConditions: string;
-  takesMedications: boolean;
+  takesMedications: string;
   medications: string;
-  hasDietaryRestrictions: boolean;
+  hasDietaryRestrictions: string;
   dietaryRestrictions: string;
 
-  // Criminal Background Check
-  hasBackgroundCheck: boolean;
+  // Required Documents
+  backgroundCheckFile: FileList;
+  passportFile: FileList;
+  photoIdFile: FileList;
+  medicalClearanceFile: FileList;
 
   // Terms & Conditions
   photographyRelease: boolean;
   codeOfConduct: boolean;
   forceMajeure: boolean;
   personalEquipment: boolean;
-  refundPolicy: boolean;
 
   // Liability Waiver
   acknowledgesRisk: boolean;
@@ -49,14 +52,42 @@ interface FormData {
 
 const TwoDayCourseForm = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
-  const [showMedicalDetails, setShowMedicalDetails] = useState(false);
-  const [showMedicationDetails, setShowMedicationDetails] = useState(false);
-  const [showDietaryDetails, setShowDietaryDetails] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [formData, setFormData] = useState<FormData | null>(null);
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Handle form submission here
+    setFormData(data);
+    setShowPayment(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const handlePaymentSuccess = () => {
+    // Here you would typically submit both the form data and payment info to your backend
+    console.log('Form and payment completed:', formData);
+    // Reset the form or redirect to a success page
+  };
+
+  const handlePaymentCancel = () => {
+    setShowPayment(false);
+  };
+
+  if (showPayment && formData) {
+    return (
+      <div className="min-h-screen bg-tactical-950 pt-32 pb-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-3xl mx-auto">
+            <PaymentForm
+              amount={2900}
+              courseName="2-Day Tactical Training"
+              onSuccess={handlePaymentSuccess}
+              onCancel={handlePaymentCancel}
+              showDepositOption={true}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white pt-32 pb-16">
@@ -72,9 +103,8 @@ const TwoDayCourseForm = () => {
               <h2 className="text-xl font-bold text-gray-900 mb-4">Course Details</h2>
               <div className="space-y-2 text-gray-700">
                 <p><strong>Location:</strong> S-Arms Shooting Range, Estonia</p>
-                <p><strong>Accommodation:</strong> Hestia Hotel Strand (private room)</p>
-                <p><strong>Duration:</strong> 2 days (17th to 19th March)</p>
-                <p><strong>Seminar Price:</strong> 2900 EUR per participant</p>
+                <p><strong>Duration:</strong> 2 days (April 21st to 23rd)</p>
+                <p><strong>Price:</strong> 2900 EUR per participant</p>
               </div>
             </div>
 
@@ -92,7 +122,7 @@ const TwoDayCourseForm = () => {
                   {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth (DD/MM/YYYY)</label>
                   <input
                     type="date"
                     {...register("dateOfBirth", { required: "Date of birth is required" })}
@@ -102,15 +132,11 @@ const TwoDayCourseForm = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                  <select
+                  <input
+                    type="text"
                     {...register("gender", { required: "Gender is required" })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
-                  >
-                    <option value="">Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
+                  />
                   {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>}
                 </div>
                 <div>
@@ -215,17 +241,32 @@ const TwoDayCourseForm = () => {
               <h2 className="text-xl font-bold text-gray-900 mb-4">Medical Information</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      {...register("hasMedicalConditions")}
-                      onChange={(e) => setShowMedicalDetails(e.target.checked)}
-                      className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Do you have any medical conditions or allergies we should be aware of?</span>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Do you have any medical conditions or allergies we should be aware of?
                   </label>
-                  {showMedicalDetails && (
-                    <div className="mt-2">
+                  <div className="flex space-x-4 mb-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        {...register("hasMedicalConditions")}
+                        value="yes"
+                        className="form-radio text-brandRed"
+                      />
+                      <span className="ml-2">Yes</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        {...register("hasMedicalConditions")}
+                        value="no"
+                        className="form-radio text-brandRed"
+                      />
+                      <span className="ml-2">No</span>
+                    </label>
+                  </div>
+                  {watch("hasMedicalConditions") === "yes" && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Please specify:</label>
                       <textarea
                         {...register("medicalConditions")}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
@@ -236,17 +277,32 @@ const TwoDayCourseForm = () => {
                 </div>
 
                 <div>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      {...register("takesMedications")}
-                      onChange={(e) => setShowMedicationDetails(e.target.checked)}
-                      className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Are you currently taking any medications?</span>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Are you currently taking any medications?
                   </label>
-                  {showMedicationDetails && (
-                    <div className="mt-2">
+                  <div className="flex space-x-4 mb-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        {...register("takesMedications")}
+                        value="yes"
+                        className="form-radio text-brandRed"
+                      />
+                      <span className="ml-2">Yes</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        {...register("takesMedications")}
+                        value="no"
+                        className="form-radio text-brandRed"
+                      />
+                      <span className="ml-2">No</span>
+                    </label>
+                  </div>
+                  {watch("takesMedications") === "yes" && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Please list them:</label>
                       <textarea
                         {...register("medications")}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
@@ -257,17 +313,32 @@ const TwoDayCourseForm = () => {
                 </div>
 
                 <div>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      {...register("hasDietaryRestrictions")}
-                      onChange={(e) => setShowDietaryDetails(e.target.checked)}
-                      className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
-                    />
-                    <span className="text-sm font-medium text-gray-700">Do you have any dietary restrictions or food allergies?</span>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Do you have any dietary restrictions or food allergies?
                   </label>
-                  {showDietaryDetails && (
-                    <div className="mt-2">
+                  <div className="flex space-x-4 mb-2">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        {...register("hasDietaryRestrictions")}
+                        value="yes"
+                        className="form-radio text-brandRed"
+                      />
+                      <span className="ml-2">Yes</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        {...register("hasDietaryRestrictions")}
+                        value="no"
+                        className="form-radio text-brandRed"
+                      />
+                      <span className="ml-2">No</span>
+                    </label>
+                  </div>
+                  {watch("hasDietaryRestrictions") === "yes" && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Please specify:</label>
                       <textarea
                         {...register("dietaryRestrictions")}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
@@ -280,24 +351,151 @@ const TwoDayCourseForm = () => {
             </div>
 
             {/* Criminal Background Check */}
-            <div className="bg-gray-50 p-6 rounded-lg">
+            <div className="bg-gray-50 p-6 rounded-lg border-2 border-brandRed">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Criminal Background Check</h2>
-              <div>
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    {...register("hasBackgroundCheck", { required: "You must confirm the background check requirement" })}
-                    className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
-                  />
-                  <span className="text-sm font-medium text-gray-700">I confirm that I will provide a criminal background check from my country of residence</span>
-                </label>
-                {errors.hasBackgroundCheck && <p className="text-red-500 text-sm mt-1">{errors.hasBackgroundCheck.message}</p>}
+              <div className="space-y-4">
+                <p className="text-gray-700 font-medium">
+                  Participants must submit a criminal background check from their country of residence.
+                </p>
+                <div>
+                  <label className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      {...register("confirmsBackgroundCheck", { 
+                        required: "You must confirm that you will provide a criminal background check" 
+                      })}
+                      className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
+                    />
+                    <span className="text-sm font-medium text-gray-700">
+                      I confirm that I will provide a criminal background check from my country of residence before attending the seminar
+                    </span>
+                  </label>
+                  {errors.confirmsBackgroundCheck && (
+                    <p className="text-red-500 text-sm mt-1">{errors.confirmsBackgroundCheck.message}</p>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Terms & Conditions */}
+            {/* Required Documents */}
+            <div className="bg-gray-50 p-6 rounded-lg border-2 border-brandRed">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Required Documents</h2>
+              <div className="space-y-6">
+                <p className="text-gray-700">
+                  Please upload copies of the following required documents. All documents must be clear, legible, and in PDF or image format.
+                </p>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Criminal Background Check <span className="text-brandRed">*</span>
+                    </label>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      {...register("backgroundCheckFile", { 
+                        required: "Criminal background check document is required" 
+                      })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    />
+                    {errors.backgroundCheckFile && (
+                      <p className="text-red-500 text-sm mt-1">{errors.backgroundCheckFile.message}</p>
+                    )}
+                    <p className="text-sm text-gray-500 mt-1">
+                      Upload your criminal background check from your country of residence
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Valid Passport <span className="text-brandRed">*</span>
+                    </label>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      {...register("passportFile", { 
+                        required: "Passport copy is required" 
+                      })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    />
+                    {errors.passportFile && (
+                      <p className="text-red-500 text-sm mt-1">{errors.passportFile.message}</p>
+                    )}
+                    <p className="text-sm text-gray-500 mt-1">
+                      Upload a clear copy of your valid passport's photo page
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Government-Issued Photo ID <span className="text-brandRed">*</span>
+                    </label>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      {...register("photoIdFile", { 
+                        required: "Photo ID is required" 
+                      })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    />
+                    {errors.photoIdFile && (
+                      <p className="text-red-500 text-sm mt-1">{errors.photoIdFile.message}</p>
+                    )}
+                    <p className="text-sm text-gray-500 mt-1">
+                      Upload a clear copy of your government-issued photo ID (e.g., driver's license)
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Medical Clearance <span className="text-brandRed">*</span>
+                    </label>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      {...register("medicalClearanceFile", { 
+                        required: "Medical clearance document is required" 
+                      })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    />
+                    {errors.medicalClearanceFile && (
+                      <p className="text-red-500 text-sm mt-1">{errors.medicalClearanceFile.message}</p>
+                    )}
+                    <p className="text-sm text-gray-500 mt-1">
+                      Upload a medical clearance form or certificate from your healthcare provider
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 p-4 bg-gray-100 rounded-md">
+                  <h3 className="text-sm font-medium text-gray-900 mb-2">Important Notes:</h3>
+                  <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                    <li>All documents must be current and valid</li>
+                    <li>Files must be in PDF, JPG, or PNG format</li>
+                    <li>Maximum file size: 5MB per document</li>
+                    <li>Documents must be in English or accompanied by certified translations</li>
+                    <li>Unclear or illegible documents will not be accepted</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Seminar Inclusions */}
             <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Terms & Conditions</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Seminar Inclusions</h2>
+              <ul className="space-y-2 text-gray-700">
+                <li>• Accommodation: Private room for 2 nights at Hestia Hotel Strand</li>
+                <li>• Transportation: All seminar-related transportation provided</li>
+                <li>• Meals: Daily meals provided during the seminar</li>
+                <li>• Insurance: Platinum-level insurance for all seminar activities</li>
+                <li>• Tactical Training: 2 full days of intensive tactical training at the S-Arms Shooting Range</li>
+                <li>• Seminar T-Shirt: Custom Bald Eagle Tactical seminar t-shirt</li>
+              </ul>
+            </div>
+
+            {/* Additional Terms & Conditions */}
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Additional Terms & Conditions</h2>
               <div className="space-y-4">
                 <div>
                   <label className="flex items-center space-x-2">
@@ -306,7 +504,9 @@ const TwoDayCourseForm = () => {
                       {...register("photographyRelease", { required: "You must agree to the photography release" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I grant Bald Eagle Tactical permission to use my image in promotional materials</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Photography & Media Release: I grant Bald Eagle Tactical permission to use my image in promotional materials
+                    </span>
                   </label>
                   {errors.photographyRelease && <p className="text-red-500 text-sm mt-1">{errors.photographyRelease.message}</p>}
                 </div>
@@ -318,7 +518,9 @@ const TwoDayCourseForm = () => {
                       {...register("codeOfConduct", { required: "You must agree to the code of conduct" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I agree to follow all safety protocols and instructions</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Code of Conduct: I agree to follow all safety protocols and instructions
+                    </span>
                   </label>
                   {errors.codeOfConduct && <p className="text-red-500 text-sm mt-1">{errors.codeOfConduct.message}</p>}
                 </div>
@@ -330,7 +532,9 @@ const TwoDayCourseForm = () => {
                       {...register("forceMajeure", { required: "You must agree to the force majeure clause" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I understand that Bald Eagle Tactical is not liable for seminar disruptions beyond its control</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Force Majeure: I understand that Bald Eagle Tactical is not liable for seminar disruptions beyond its control
+                    </span>
                   </label>
                   {errors.forceMajeure && <p className="text-red-500 text-sm mt-1">{errors.forceMajeure.message}</p>}
                 </div>
@@ -342,28 +546,18 @@ const TwoDayCourseForm = () => {
                       {...register("personalEquipment", { required: "You must agree to the personal equipment responsibility" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I understand that I am responsible for my personal equipment</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Personal Equipment: I understand that I am responsible for my personal equipment
+                    </span>
                   </label>
                   {errors.personalEquipment && <p className="text-red-500 text-sm mt-1">{errors.personalEquipment.message}</p>}
-                </div>
-
-                <div>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      {...register("refundPolicy", { required: "You must agree to the refund policy" })}
-                      className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
-                    />
-                    <span className="text-sm font-medium text-gray-700">I understand that all deposits are non-refundable and cancellations within 30 days are not eligible for refunds</span>
-                  </label>
-                  {errors.refundPolicy && <p className="text-red-500 text-sm mt-1">{errors.refundPolicy.message}</p>}
                 </div>
               </div>
             </div>
 
             {/* Liability Waiver */}
             <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Liability Waiver</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Liability Waiver and Release of Claims</h2>
               <div className="space-y-4">
                 <div>
                   <label className="flex items-center space-x-2">
@@ -372,7 +566,9 @@ const TwoDayCourseForm = () => {
                       {...register("acknowledgesRisk", { required: "You must acknowledge the risks involved" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I acknowledge that participation involves live-fire exercises and physical activities</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Acknowledgment of Risk: I acknowledge that participation involves live-fire exercises and physical activities
+                    </span>
                   </label>
                   {errors.acknowledgesRisk && <p className="text-red-500 text-sm mt-1">{errors.acknowledgesRisk.message}</p>}
                 </div>
@@ -384,7 +580,9 @@ const TwoDayCourseForm = () => {
                       {...register("releasesLiability", { required: "You must release liability" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I release Bald Eagle Tactical from any liability for injuries or incidents during the seminar</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Release of Liability: I release Bald Eagle Tactical from any liability for injuries or incidents during the seminar
+                    </span>
                   </label>
                   {errors.releasesLiability && <p className="text-red-500 text-sm mt-1">{errors.releasesLiability.message}</p>}
                 </div>
@@ -396,21 +594,11 @@ const TwoDayCourseForm = () => {
                       {...register("confirmsInsurance", { required: "You must confirm insurance coverage" })}
                       className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
                     />
-                    <span className="text-sm font-medium text-gray-700">I confirm that platinum-level insurance is included</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      Insurance: I confirm that platinum-level insurance is included
+                    </span>
                   </label>
                   {errors.confirmsInsurance && <p className="text-red-500 text-sm mt-1">{errors.confirmsInsurance.message}</p>}
-                </div>
-
-                <div>
-                  <label className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      {...register("confirmsBackgroundCheck", { required: "You must confirm the background check requirement" })}
-                      className="rounded border-gray-300 text-brandRed focus:ring-brandRed"
-                    />
-                    <span className="text-sm font-medium text-gray-700">I confirm I will provide a valid background check before attending</span>
-                  </label>
-                  {errors.confirmsBackgroundCheck && <p className="text-red-500 text-sm mt-1">{errors.confirmsBackgroundCheck.message}</p>}
                 </div>
               </div>
             </div>
@@ -418,9 +606,12 @@ const TwoDayCourseForm = () => {
             {/* Signature */}
             <div className="bg-gray-50 p-6 rounded-lg">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Signature</h2>
+              <p className="text-gray-700 mb-4">
+                By signing below, I confirm that I have read, understood, and agreed to the terms outlined above.
+              </p>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Electronic Signature</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Participant Signature</label>
                   <input
                     type="text"
                     {...register("signature", { required: "Signature is required" })}
