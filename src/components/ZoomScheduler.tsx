@@ -74,7 +74,7 @@ const ZoomScheduler: React.FC<ZoomSchedulerProps> = ({ onScheduled }) => {
             onChange={(e) => setSelectedDate(e.target.value)}
             min={format(new Date(), 'yyyy-MM-dd')}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
           />
         </div>
 
@@ -86,7 +86,7 @@ const ZoomScheduler: React.FC<ZoomSchedulerProps> = ({ onScheduled }) => {
             value={selectedTime}
             onChange={(e) => setSelectedTime(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
           >
             <option value="">Select a time</option>
             {timeSlots.map((time) => (
@@ -104,7 +104,7 @@ const ZoomScheduler: React.FC<ZoomSchedulerProps> = ({ onScheduled }) => {
           <select
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
           >
             <option value="30">30 minutes</option>
             <option value="60">1 hour</option>
@@ -120,7 +120,7 @@ const ZoomScheduler: React.FC<ZoomSchedulerProps> = ({ onScheduled }) => {
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
           />
         </div>
 
