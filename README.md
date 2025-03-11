@@ -18,8 +18,13 @@ A professional website for Bald Eagle Tactical, featuring course registration, t
 - Tailwind CSS
 - React Router
 - React Hook Form
+- Node.js/Express (Backend)
+- MongoDB
+- Docker
 
 ## Getting Started
+
+### Standard Setup
 
 1. Clone the repository:
 ```bash
@@ -29,6 +34,7 @@ git clone [repository-url]
 2. Install dependencies:
 ```bash
 npm install
+cd server && npm install
 ```
 
 3. Start the development server:
@@ -36,9 +42,43 @@ npm install
 npm run dev
 ```
 
-4. Build for production:
+4. In a separate terminal, start the backend server:
+```bash
+cd server && npm run dev
+```
+
+5. Build for production:
 ```bash
 npm run build
+```
+
+### Docker Setup
+
+1. Clone the repository:
+```bash
+git clone [repository-url]
+```
+
+2. Create a `.env` file based on the `.env.example` template:
+```bash
+cp .env.example .env
+```
+
+3. Update the environment variables in the `.env` file with your actual values.
+
+4. Build and start the Docker containers:
+```bash
+docker-compose up -d
+```
+
+5. To stop the containers:
+```bash
+docker-compose down
+```
+
+6. To view logs:
+```bash
+docker-compose logs -f
 ```
 
 ## Contact

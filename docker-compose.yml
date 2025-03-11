@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Backend API
+      - "5173:5173"  # Frontend (if needed for development)
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/bald-eagle-tactical
+      - FRONTEND_URL=http://localhost:5173
+      # Add other environment variables as needed:
+      # - STRIPE_SECRET_KEY=your_stripe_secret_key
+      # - JWT_SECRET=your_jwt_secret
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    volumes:
+      - ./.env:/app/.env
+
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongodb_data: 
