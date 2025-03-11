@@ -1,5 +1,7 @@
 # Bald Eagle Tactical
 
+*Last Updated: March 11, 2024*
+
 A professional website for Bald Eagle Tactical, featuring course registration, training information, and company details.
 
 ## Features
