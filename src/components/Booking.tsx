@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ZoomScheduler from './ZoomScheduler';
 
 const Booking = () => {
+  const [scheduledMeeting, setScheduledMeeting] = useState<{
+    startTime: string;
+    duration: number;
+    topic: string;
+    meetingUrl?: string;
+  } | null>(null);
+
+  const handleMeetingScheduled = (meetingDetails: {
+    startTime: string;
+    duration: number;
+    topic: string;
+    meetingUrl?: string;
+  }) => {
+    setScheduledMeeting(meetingDetails);
+  };
+
   return (
     <div className="min-h-screen bg-tactical-900 pt-32 pb-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -13,7 +30,7 @@ const Booking = () => {
             Choose your preferred course and complete the registration form. We'll contact you shortly to confirm your booking.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {/* Two-Day Course Card */}
             <div className="bg-tactical-800 p-6 rounded-lg border border-tactical-700">
               <h2 className="text-2xl font-bold text-white mb-4">2-Day Tactical Seminar</h2>
@@ -61,6 +78,43 @@ const Booking = () => {
                 Register for 5-Day Course
               </Link>
             </div>
+          </div>
+
+          {/* Zoom Meeting Section */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-heading font-bold text-white mb-6 text-center">
+              Schedule a Free Consultation
+            </h2>
+            <p className="text-tactical-200 text-center mb-8">
+              Book a free consultation to discuss your training needs and get personalized recommendations.
+            </p>
+            
+            {scheduledMeeting ? (
+              <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Meeting Scheduled!</h3>
+                <div className="space-y-2 text-gray-700">
+                  <p><strong>Topic:</strong> {scheduledMeeting.topic}</p>
+                  <p><strong>Date:</strong> {new Date(scheduledMeeting.startTime).toLocaleDateString()}</p>
+                  <p><strong>Time:</strong> {new Date(scheduledMeeting.startTime).toLocaleTimeString()}</p>
+                  <p><strong>Duration:</strong> {scheduledMeeting.duration} minutes</p>
+                  {scheduledMeeting.meetingUrl && (
+                    <p>
+                      <strong>Join URL:</strong>{' '}
+                      <a 
+                        href={scheduledMeeting.meetingUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-brandRed hover:text-brandRed-hover underline"
+                      >
+                        Click here to join
+                      </a>
+                    </p>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <ZoomScheduler onScheduled={handleMeetingScheduled} />
+            )}
           </div>
 
           <div className="mt-12 text-center text-tactical-200">
