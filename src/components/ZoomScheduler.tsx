@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { format } from 'date-fns';
+import { useState } from 'react';
+import { zoomService } from '../services/zoomService';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { toast } from './ui/use-toast';
+import { Calendar, Clock, Users } from 'lucide-react';
 
 interface ZoomSchedulerProps {
   onScheduled: (meetingDetails: {
@@ -10,45 +15,66 @@ interface ZoomSchedulerProps {
   }) => void;
 }
 
-const ZoomScheduler: React.FC<ZoomSchedulerProps> = ({ onScheduled }) => {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
-  const [duration, setDuration] = useState('30');
+export default function ZoomScheduler({ onScheduled }: ZoomSchedulerProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const [topic, setTopic] = useState('Training Consultation');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [duration, setDuration] = useState('30');
+  const [email, setEmail] = useState('');
 
-  const handleSchedule = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const startTime = `${selectedDate}T${selectedTime}:00`;
-    
+    setIsLoading(true);
+
     try {
-      // Here we'll integrate with your Zoom API endpoint
-      const response = await fetch('/api/schedule-zoom', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          startTime,
-          duration: parseInt(duration),
-          topic,
-        }),
+      // Combine date and time into ISO string
+      const startTime = new Date(`${date}T${time}`).toISOString();
+      
+      // Create Zoom meeting with calendar integration enabled
+      const meeting = await zoomService.createMeeting(
+        topic,
+        startTime,
+        parseInt(duration),
+        {
+          settings: {
+            calendar_integration: true,
+            registrants_email_notification: true,
+            registrants_confirmation_email: true,
+            alternative_hosts_email_notification: true
+          }
+        }
+      );
+
+      // Create calendar event for both parties
+      await zoomService.addToCalendar({
+        summary: topic,
+        description: `Training Consultation\n\nJoin Zoom Meeting:\n${meeting.join_url}`,
+        startTime,
+        duration: parseInt(duration),
+        attendeeEmail: email,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to schedule meeting');
-      }
+      toast({
+        title: "Success!",
+        description: "Your consultation has been scheduled and added to both calendars. Check your email for details.",
+      });
 
-      const data = await response.json();
       onScheduled({
         startTime,
         duration: parseInt(duration),
         topic,
-        meetingUrl: data.join_url,
+        meetingUrl: meeting.join_url,
       });
     } catch (error) {
-      console.error('Error scheduling meeting:', error);
-      alert('Failed to schedule meeting. Please try again.');
+      console.error('Failed to schedule consultation:', error);
+      toast({
+        title: "Error",
+        description: "Failed to schedule consultation. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,78 +87,87 @@ const ZoomScheduler: React.FC<ZoomSchedulerProps> = ({ onScheduled }) => {
   }
 
   return (
-    <div className="bg-gray-50 p-6 rounded-lg">
-      <h2 className="text-xl font-bold text-gray-900 mb-4">Schedule a Zoom Consultation</h2>
-      <form onSubmit={handleSchedule} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Date
-          </label>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            min={format(new Date(), 'yyyy-MM-dd')}
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <Label htmlFor="email" className="text-white flex items-center gap-2">
+            <Users className="text-brandRed" size={16} />
+            Your Email
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
+            placeholder="Enter your email"
+            className="bg-tactical-700 border-tactical-600 text-white"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Time
-          </label>
-          <select
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
+        <div className="space-y-2">
+          <Label htmlFor="date" className="text-white flex items-center gap-2">
+            <Calendar className="text-brandRed" size={16} />
+            Select Date
+          </Label>
+          <Input
+            id="date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            min={new Date().toISOString().split('T')[0]}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
+            className="bg-tactical-700 border-tactical-600 text-white"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <Label htmlFor="time" className="text-white flex items-center gap-2">
+            <Clock className="text-brandRed" size={16} />
+            Select Time
+          </Label>
+          <select
+            id="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+            required
+            className="w-full px-3 py-2 bg-tactical-700 border border-tactical-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
           >
-            <option value="">Select a time</option>
-            {timeSlots.map((time) => (
-              <option key={time} value={time}>
-                {time}
+            <option value="">Choose a time slot</option>
+            {timeSlots.map((slot) => (
+              <option key={slot} value={slot}>
+                {slot}
               </option>
             ))}
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Duration (minutes)
-          </label>
+        <div className="space-y-2">
+          <Label htmlFor="duration" className="text-white flex items-center gap-2">
+            <Clock className="text-brandRed" size={16} />
+            Duration
+          </Label>
           <select
+            id="duration"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
+            className="w-full px-3 py-2 bg-tactical-700 border border-tactical-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
           >
             <option value="30">30 minutes</option>
             <option value="60">1 hour</option>
           </select>
         </div>
+      </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Topic
-          </label>
-          <input
-            type="text"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed bg-white text-gray-900"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-brandRed hover:bg-brandRed-hover text-white px-4 py-2 rounded-md font-medium transition-colors duration-200"
-        >
-          Schedule Meeting
-        </button>
-      </form>
-    </div>
+      <Button 
+        type="submit" 
+        disabled={isLoading}
+        className="w-full bg-brandRed hover:bg-brandRed-hover text-white"
+      >
+        {isLoading ? 'Scheduling...' : '🗓 Schedule Free Consultation'}
+      </Button>
+    </form>
   );
-};
-
-export default ZoomScheduler; 
+} 

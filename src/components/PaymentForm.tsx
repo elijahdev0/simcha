@@ -7,6 +7,7 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import { createPaymentIntent } from '../api/payment';
+import { useAuth } from '../hooks/useAuth';
 
 // Initialize Stripe with the publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -14,14 +15,16 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 interface PaymentFormProps {
   amount: number;
   courseName: string;
+  courseId: string;
   onSuccess: () => void;
   onCancel: () => void;
   showDepositOption?: boolean;
 }
 
-const CheckoutForm = ({ amount, courseName, onSuccess, onCancel, showDepositOption = false }: PaymentFormProps) => {
+const CheckoutForm = ({ amount, courseName, courseId, onSuccess, onCancel, showDepositOption = false }: PaymentFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
+  const { user, updatePaymentPreferences } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -59,10 +62,27 @@ const CheckoutForm = ({ amount, courseName, onSuccess, onCancel, showDepositOpti
       return;
     }
 
+    // If this was a deposit payment, update the user's payment preferences
+    if (isDeposit && user) {
+      updatePaymentPreferences({
+        prefersSplitPayment: true,
+        hasOutstandingBalance: true,
+        outstandingBalanceAmount: amount - depositAmount,
+        courseId
+      });
+    }
+
     // Payment successful
     onSuccess();
     setIsProcessing(false);
   };
+
+  // Show deposit option only for logged-in users
+  const canShowDepositOption = showDepositOption && user?.isLoggedIn;
+
+  // If user has an outstanding balance for this course, show that instead
+  const hasOutstandingBalance = user?.paymentPreferences?.hasOutstandingBalance && 
+                               user?.paymentPreferences?.courseId === courseId;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -72,7 +92,15 @@ const CheckoutForm = ({ amount, courseName, onSuccess, onCancel, showDepositOpti
           <p className="text-gray-600">
             Secure payment for {courseName}
           </p>
-          {showDepositOption && (
+
+          {hasOutstandingBalance ? (
+            <div className="mt-4 bg-tactical-50 p-4 rounded-md">
+              <h4 className="font-semibold text-gray-900">Outstanding Balance Payment</h4>
+              <p className="text-gray-600">
+                Remaining balance: €{user?.paymentPreferences?.outstandingBalanceAmount}
+              </p>
+            </div>
+          ) : canShowDepositOption && (
             <div className="mt-4 space-y-4">
               <div className="flex items-center space-x-4">
                 <label className="inline-flex items-center">
@@ -95,12 +123,20 @@ const CheckoutForm = ({ amount, courseName, onSuccess, onCancel, showDepositOpti
                 </label>
               </div>
               {isDeposit && (
-                <p className="text-sm text-gray-500">
-                  Remaining balance of €{amount - depositAmount} will be due before the course starts.
-                </p>
+                <div className="bg-tactical-50 p-4 rounded-md">
+                  <p className="text-sm text-gray-600">
+                    By choosing the deposit option:
+                  </p>
+                  <ul className="list-disc ml-5 mt-2 text-sm text-gray-600">
+                    <li>Initial deposit: €{depositAmount}</li>
+                    <li>Remaining balance: €{amount - depositAmount}</li>
+                    <li>Balance payment due 15 days before course start</li>
+                  </ul>
+                </div>
               )}
             </div>
           )}
+
           <p className="mt-4 text-lg font-semibold text-gray-900">
             Total to pay: €{finalAmount}
           </p>

@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, ArrowRight, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -34,6 +34,12 @@ const Footer = () => {
                 <Mail size={18} className="text-tactical-400" />
                 <a href="mailto:Menahem@baldeagletactical.com" className="hover:text-white transition-colors duration-200">
                   Menahem@baldeagletactical.com
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <MessageCircle size={18} className="text-tactical-400" />
+                <a href="https://wa.me/447982369701" className="hover:text-white transition-colors duration-200">
+                  📞 Chat with Us on WhatsApp
                 </a>
               </div>
               <div className="flex items-center space-x-3">

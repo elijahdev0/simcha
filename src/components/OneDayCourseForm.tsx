@@ -1,4 +1,5 @@
 import React from 'react';
+import { MessageCircle } from 'lucide-react';
 
 const OneDayCourseForm = () => {
   return (
@@ -101,8 +102,25 @@ const OneDayCourseForm = () => {
             <div className="mt-8">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h2>
               <p>For any questions regarding the course or registration process, please contact:</p>
-              <p className="mt-2"><strong>Email:</strong> Menahem@baldeagletactical.com</p>
-              <p><strong>Phone:</strong> +44 7982 369701</p>
+              <p className="mt-2">
+                <strong>Email:</strong>{' '}
+                <a href="mailto:Menahem@baldeagletactical.com" className="text-brandRed hover:text-brandRed-hover">
+                  Menahem@baldeagletactical.com
+                </a>
+              </p>
+              <p>
+                <strong>WhatsApp:</strong>{' '}
+                <a href="https://wa.me/447982369701" className="text-brandRed hover:text-brandRed-hover">
+                  <MessageCircle className="inline-block mr-1" size={16} />
+                  📞 Chat with Us on WhatsApp
+                </a>
+              </p>
+              <p>
+                <strong>Phone:</strong>{' '}
+                <a href="tel:+447982369701" className="text-brandRed hover:text-brandRed-hover">
+                  +44 7982 369701
+                </a>
+              </p>
             </div>
           </div>
         </div>

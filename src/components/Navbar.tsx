@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Phone, Mail } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, MessageCircle } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
@@ -35,6 +35,10 @@ const Navbar = () => {
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4 text-sm text-tactical-300">
+              <a href="https://wa.me/447982369701" className="flex items-center space-x-2 hover:text-white transition-colors">
+                <MessageCircle size={14} />
+                <span>📞 Chat with Us on WhatsApp</span>
+              </a>
               <a href="tel:+447982369701" className="flex items-center space-x-2 hover:text-white transition-colors">
                 <Phone size={14} />
                 <span>+44 7982 369701</span>
@@ -251,6 +255,10 @@ const Navbar = () => {
               </Link>
               
               <div className="pt-4 border-t border-tactical-800 mt-2 space-y-2">
+                <a href="https://wa.me/447982369701" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
+                  <MessageCircle size={14} />
+                  <span>📞 Chat with Us on WhatsApp</span>
+                </a>
                 <a href="tel:+447982369701" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
                   <Phone size={14} />
                   <span>+44 7982 369701</span>

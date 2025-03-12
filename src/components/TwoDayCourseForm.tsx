@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PaymentForm from './PaymentForm';
+import { MessageCircle } from 'lucide-react';
 
 interface FormData {
   // Participant Information
@@ -79,6 +80,7 @@ const TwoDayCourseForm = () => {
             <PaymentForm
               amount={2900}
               courseName="2-Day Tactical Training"
+              courseId="two-day-tactical"
               onSuccess={handlePaymentSuccess}
               onCancel={handlePaymentCancel}
               showDepositOption={true}
@@ -646,8 +648,25 @@ const TwoDayCourseForm = () => {
           {/* Contact Information */}
           <div className="mt-12 text-center text-gray-700">
             <p>For any questions regarding the seminar or registration process, please contact:</p>
-            <p className="mt-2"><strong>Email:</strong> Menahem@baldeagletactical.com</p>
-            <p><strong>Phone:</strong> +44 7982 369701</p>
+            <p className="mt-2">
+              <strong>Email:</strong>{' '}
+              <a href="mailto:Menahem@baldeagletactical.com" className="text-brandRed hover:text-brandRed-hover">
+                Menahem@baldeagletactical.com
+              </a>
+            </p>
+            <p>
+              <strong>WhatsApp:</strong>{' '}
+              <a href="https://wa.me/447982369701" className="text-brandRed hover:text-brandRed-hover">
+                <MessageCircle className="inline-block mr-1" size={16} />
+                📞 Chat with Us on WhatsApp
+              </a>
+            </p>
+            <p>
+              <strong>Phone:</strong>{' '}
+              <a href="tel:+447982369701" className="text-brandRed hover:text-brandRed-hover">
+                +44 7982 369701
+              </a>
+            </p>
           </div>
         </div>
       </div>
