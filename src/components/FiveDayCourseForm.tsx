@@ -80,7 +80,6 @@ const FiveDayCourseForm = () => {
             <PaymentForm
               amount={5700}
               courseName="5-Day Tactical Masterclass"
-              courseId="five-day-tactical"
               onSuccess={handlePaymentSuccess}
               onCancel={handlePaymentCancel}
               showDepositOption={true}

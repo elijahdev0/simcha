@@ -80,7 +80,6 @@ const TwoDayCourseForm = () => {
             <PaymentForm
               amount={2900}
               courseName="2-Day Tactical Training"
-              courseId="two-day-tactical"
               onSuccess={handlePaymentSuccess}
               onCancel={handlePaymentCancel}
               showDepositOption={true}
