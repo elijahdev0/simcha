@@ -15,6 +15,7 @@ import RefundPolicy from './components/RefundPolicy';
 import Index from './pages/Index';
 import LoginForm from './components/auth/LoginForm';
 import Dashboard from './components/dashboard/Dashboard';
+import ScrollToTop from './components/ScrollToTop';
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -25,6 +26,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-tactical-950">
         <Navbar />
         <Routes>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PaymentForm from './PaymentForm';
+import ZoomScheduler from './ZoomScheduler';
 import { MessageCircle } from 'lucide-react';
 
 interface FormData {
@@ -54,22 +55,41 @@ interface FormData {
 const FiveDayCourseForm = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
   const [showPayment, setShowPayment] = useState(false);
+  const [showZoomScheduler, setShowZoomScheduler] = useState(false);
   const [formData, setFormData] = useState<FormData | null>(null);
+  const [scheduledMeeting, setScheduledMeeting] = useState<{
+    startTime: string;
+    duration: number;
+    topic: string;
+    meetingUrl?: string;
+  } | null>(null);
 
   const onSubmit = (data: FormData) => {
     setFormData(data);
-    setShowPayment(true);
+    setShowZoomScheduler(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleMeetingScheduled = (meetingDetails: {
+    startTime: string;
+    duration: number;
+    topic: string;
+    meetingUrl?: string;
+  }) => {
+    setScheduledMeeting(meetingDetails);
+    setShowZoomScheduler(false);
+    setShowPayment(true);
+  };
+
   const handlePaymentSuccess = () => {
-    // Here you would typically submit both the form data and payment info to your backend
-    console.log('Form and payment completed:', formData);
+    // Here you would typically submit both the form data, meeting details, and payment info to your backend
+    console.log('Form, meeting, and payment completed:', { formData, scheduledMeeting });
     // Reset the form or redirect to a success page
   };
 
   const handlePaymentCancel = () => {
     setShowPayment(false);
+    setShowZoomScheduler(true);
   };
 
   if (showPayment && formData) {
@@ -77,6 +97,20 @@ const FiveDayCourseForm = () => {
       <div className="min-h-screen bg-tactical-950 pt-32 pb-16">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl mx-auto">
+            <div className="mb-8 p-6 bg-tactical-800 rounded-lg">
+              <h2 className="text-xl font-bold text-white mb-4">Virtual Meeting Scheduled</h2>
+              {scheduledMeeting && (
+                <div className="text-tactical-100">
+                  <p>Topic: {scheduledMeeting.topic}</p>
+                  <p>Date: {new Date(scheduledMeeting.startTime).toLocaleDateString()}</p>
+                  <p>Time: {new Date(scheduledMeeting.startTime).toLocaleTimeString()}</p>
+                  <p>Duration: {scheduledMeeting.duration} minutes</p>
+                  {scheduledMeeting.meetingUrl && (
+                    <p>Meeting URL: <a href={scheduledMeeting.meetingUrl} className="text-brandRed hover:text-brandRed-hover" target="_blank" rel="noopener noreferrer">{scheduledMeeting.meetingUrl}</a></p>
+                  )}
+                </div>
+              )}
+            </div>
             <PaymentForm
               amount={5700}
               courseName="5-Day Tactical Masterclass"
@@ -84,6 +118,24 @@ const FiveDayCourseForm = () => {
               onCancel={handlePaymentCancel}
               showDepositOption={true}
             />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (showZoomScheduler && formData) {
+    return (
+      <div className="min-h-screen bg-tactical-950 pt-32 pb-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-3xl mx-auto">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-white mb-4">Schedule Your Virtual Meeting</h2>
+              <p className="text-tactical-100">Before proceeding with payment, let's schedule a brief virtual meeting to discuss course details and answer any questions you may have.</p>
+            </div>
+            <div className="bg-tactical-800 p-6 rounded-lg">
+              <ZoomScheduler onScheduled={handleMeetingScheduled} />
+            </div>
           </div>
         </div>
       </div>
