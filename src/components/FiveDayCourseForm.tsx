@@ -170,7 +170,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("fullName", { required: "Full name is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>}
                 </div>
@@ -179,7 +179,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="date"
                     {...register("dateOfBirth", { required: "Date of birth is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.dateOfBirth && <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth.message}</p>}
                 </div>
@@ -188,7 +188,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("gender", { required: "Gender is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>}
                 </div>
@@ -197,7 +197,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("nationality", { required: "Nationality is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.nationality && <p className="text-red-500 text-sm mt-1">{errors.nationality.message}</p>}
                 </div>
@@ -206,7 +206,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("address", { required: "Address is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
                 </div>
@@ -215,7 +215,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("cityState", { required: "City/State is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.cityState && <p className="text-red-500 text-sm mt-1">{errors.cityState.message}</p>}
                 </div>
@@ -224,7 +224,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("country", { required: "Country is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country.message}</p>}
                 </div>
@@ -233,7 +233,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="tel"
                     {...register("phoneNumber", { required: "Phone number is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>}
                 </div>
@@ -248,7 +248,7 @@ const FiveDayCourseForm = () => {
                         message: "Invalid email address"
                       }
                     })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.emailAddress && <p className="text-red-500 text-sm mt-1">{errors.emailAddress.message}</p>}
                 </div>
@@ -264,7 +264,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("emergencyName", { required: "Emergency contact name is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.emergencyName && <p className="text-red-500 text-sm mt-1">{errors.emergencyName.message}</p>}
                 </div>
@@ -273,7 +273,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("emergencyRelationship", { required: "Relationship is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.emergencyRelationship && <p className="text-red-500 text-sm mt-1">{errors.emergencyRelationship.message}</p>}
                 </div>
@@ -282,7 +282,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="tel"
                     {...register("emergencyPhone", { required: "Emergency contact phone is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.emergencyPhone && <p className="text-red-500 text-sm mt-1">{errors.emergencyPhone.message}</p>}
                 </div>
@@ -305,7 +305,7 @@ const FiveDayCourseForm = () => {
                         value="yes"
                         className="form-radio text-brandRed"
                       />
-                      <span className="ml-2">Yes</span>
+                      <span className="ml-2 text-gray-900">Yes</span>
                     </label>
                     <label className="inline-flex items-center">
                       <input
@@ -314,7 +314,7 @@ const FiveDayCourseForm = () => {
                         value="no"
                         className="form-radio text-brandRed"
                       />
-                      <span className="ml-2">No</span>
+                      <span className="ml-2 text-gray-900">No</span>
                     </label>
                   </div>
                   {watch("hasMedicalConditions") === "yes" && (
@@ -322,7 +322,7 @@ const FiveDayCourseForm = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Please specify:</label>
                       <textarea
                         {...register("medicalConditions")}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                         rows={3}
                       />
                     </div>
@@ -341,7 +341,7 @@ const FiveDayCourseForm = () => {
                         value="yes"
                         className="form-radio text-brandRed"
                       />
-                      <span className="ml-2">Yes</span>
+                      <span className="ml-2 text-gray-900">Yes</span>
                     </label>
                     <label className="inline-flex items-center">
                       <input
@@ -350,7 +350,7 @@ const FiveDayCourseForm = () => {
                         value="no"
                         className="form-radio text-brandRed"
                       />
-                      <span className="ml-2">No</span>
+                      <span className="ml-2 text-gray-900">No</span>
                     </label>
                   </div>
                   {watch("takesMedications") === "yes" && (
@@ -358,7 +358,7 @@ const FiveDayCourseForm = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Please list them:</label>
                       <textarea
                         {...register("medications")}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                         rows={3}
                       />
                     </div>
@@ -377,7 +377,7 @@ const FiveDayCourseForm = () => {
                         value="yes"
                         className="form-radio text-brandRed"
                       />
-                      <span className="ml-2">Yes</span>
+                      <span className="ml-2 text-gray-900">Yes</span>
                     </label>
                     <label className="inline-flex items-center">
                       <input
@@ -386,7 +386,7 @@ const FiveDayCourseForm = () => {
                         value="no"
                         className="form-radio text-brandRed"
                       />
-                      <span className="ml-2">No</span>
+                      <span className="ml-2 text-gray-900">No</span>
                     </label>
                   </div>
                   {watch("hasDietaryRestrictions") === "yes" && (
@@ -394,7 +394,7 @@ const FiveDayCourseForm = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">Please specify:</label>
                       <textarea
                         {...register("dietaryRestrictions")}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                         rows={3}
                       />
                     </div>
@@ -449,7 +449,7 @@ const FiveDayCourseForm = () => {
                       {...register("backgroundCheckFile", { 
                         required: "Criminal background check document is required" 
                       })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                     />
                     {errors.backgroundCheckFile && (
                       <p className="text-red-500 text-sm mt-1">{errors.backgroundCheckFile.message}</p>
@@ -469,7 +469,7 @@ const FiveDayCourseForm = () => {
                       {...register("passportFile", { 
                         required: "Passport copy is required" 
                       })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                     />
                     {errors.passportFile && (
                       <p className="text-red-500 text-sm mt-1">{errors.passportFile.message}</p>
@@ -489,7 +489,7 @@ const FiveDayCourseForm = () => {
                       {...register("photoIdFile", { 
                         required: "Photo ID is required" 
                       })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                     />
                     {errors.photoIdFile && (
                       <p className="text-red-500 text-sm mt-1">{errors.photoIdFile.message}</p>
@@ -509,7 +509,7 @@ const FiveDayCourseForm = () => {
                       {...register("medicalClearanceFile", { 
                         required: "Medical clearance document is required" 
                       })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                     />
                     {errors.medicalClearanceFile && (
                       <p className="text-red-500 text-sm mt-1">{errors.medicalClearanceFile.message}</p>
@@ -668,7 +668,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="text"
                     {...register("signature", { required: "Signature is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                     placeholder="Type your full name to sign"
                   />
                   {errors.signature && <p className="text-red-500 text-sm mt-1">{errors.signature.message}</p>}
@@ -678,7 +678,7 @@ const FiveDayCourseForm = () => {
                   <input
                     type="date"
                     {...register("signatureDate", { required: "Date is required" })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brandRed text-gray-900"
                   />
                   {errors.signatureDate && <p className="text-red-500 text-sm mt-1">{errors.signatureDate.message}</p>}
                 </div>
