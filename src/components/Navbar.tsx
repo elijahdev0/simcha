@@ -7,7 +7,6 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false);
   const location = useLocation();
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,9 +105,6 @@ const Navbar = () => {
                     <Link to="/courses#tactical-seminars" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
                       Tactical Seminars
                     </Link>
-                    <Link to="/courses#private-security" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
-                      Private Security
-                    </Link>
                     <Link to="/accessibility" className="block px-4 py-2 text-sm text-tactical-200 hover:bg-tactical-800 hover:text-white transition-colors duration-200">
                       Accessibility Statement
                     </Link>
@@ -125,32 +121,19 @@ const Navbar = () => {
             >
               ABOUT US
             </Link>
-
-            {isLoggedIn ? (
-              <Link 
-                to="/dashboard" 
-                className={`text-sm font-medium tracking-wide ${
-                  location.pathname === '/dashboard' ? 'text-white' : 'text-tactical-200 hover:text-white'
-                } transition-colors duration-200`}
-              >
-                DASHBOARD
-              </Link>
-            ) : (
-              <Link 
-                to="/login" 
-                className={`text-sm font-medium tracking-wide ${
-                  location.pathname === '/login' ? 'text-white' : 'text-tactical-200 hover:text-white'
-                } transition-colors duration-200`}
-              >
-                LOGIN
-              </Link>
-            )}
             
             <Link 
               to="/booking" 
               className="px-5 py-2 bg-brandRed hover:bg-brandRed-hover text-white text-sm font-medium rounded transition-colors duration-300"
             >
               BOOK TRAINING
+            </Link>
+            
+            <Link 
+              to="/book-now-pay-later" 
+              className="px-5 py-2 border border-brandRed text-brandRed hover:bg-brandRed hover:text-white text-sm font-medium rounded transition-colors duration-300"
+            >
+              BOOK NOW PAY LATER
             </Link>
           </div>
 
@@ -198,13 +181,6 @@ const Navbar = () => {
                     Tactical Seminars
                   </Link>
                   <Link 
-                    to="/courses#private-security" 
-                    className="text-sm text-tactical-300 hover:text-white transition-colors duration-200 py-1"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Private Security
-                  </Link>
-                  <Link 
                     to="/accessibility" 
                     className="text-sm text-tactical-300 hover:text-white transition-colors duration-200 py-1"
                     onClick={() => setIsMenuOpen(false)}
@@ -223,28 +199,6 @@ const Navbar = () => {
               >
                 ABOUT US
               </Link>
-
-              {isLoggedIn ? (
-                <Link 
-                  to="/dashboard" 
-                  className={`py-2 text-sm font-medium tracking-wide ${
-                    location.pathname === '/dashboard' ? 'text-white' : 'text-tactical-200'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  DASHBOARD
-                </Link>
-              ) : (
-                <Link 
-                  to="/login" 
-                  className={`py-2 text-sm font-medium tracking-wide ${
-                    location.pathname === '/login' ? 'text-white' : 'text-tactical-200'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  LOGIN
-                </Link>
-              )}
               
               <Link 
                 to="/booking" 
@@ -253,8 +207,16 @@ const Navbar = () => {
               >
                 BOOK TRAINING
               </Link>
+
+              <Link 
+                to="/book-now-pay-later" 
+                className="px-4 py-2 border border-brandRed text-brandRed hover:bg-brandRed hover:text-white text-sm font-medium rounded transition-colors duration-300 inline-block"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                BOOK NOW PAY LATER
+              </Link>
               
-              <div className="pt-4 border-t border-tactical-800 mt-2 space-y-2">
+              <div className="pt-4 mt-4 border-t border-tactical-700">
                 <a href="https://wa.me/447982369701" className="flex items-center space-x-2 text-sm text-tactical-300 hover:text-white transition-colors">
                   <MessageCircle size={14} />
                   <span>📞 Chat with Us on WhatsApp</span>
