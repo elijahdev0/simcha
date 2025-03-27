@@ -17,6 +17,7 @@ import LoginForm from './components/auth/LoginForm';
 import Dashboard from './components/dashboard/Dashboard';
 import ScrollToTop from './components/ScrollToTop';
 import BookNowPayLater from './components/BookNowPayLater';
+import AnalyticsDashboard from './components/analytics/AnalyticsDashboard';
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -41,6 +42,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/book-now-pay-later" element={<BookNowPayLater />} />
