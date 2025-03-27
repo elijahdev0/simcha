@@ -16,6 +16,7 @@ import {
 } from './services/emailService';
 import authRoutes from './routes/auth';
 import zoomRoutes from './routes/zoom';
+import analyticsRoutes from './routes/analyticsRoutes';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use('/api/', limiter);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', zoomRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/bald-eagle-tactical')

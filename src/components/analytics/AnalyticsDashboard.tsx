@@ -24,19 +24,60 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
 // Google Analytics Measurement ID
 const GA_MEASUREMENT_ID = 'G-6RPTWJ4CQ8';
 
+// Define types for our analytics data
+interface VisitorData {
+  date: string;
+  visitors: number;
+}
+
+interface DeviceData {
+  name: string;
+  value: number;
+}
+
+interface PageViewData {
+  page: string;
+  views: number;
+}
+
+interface StatsData {
+  totalVisitors: number;
+  averageDailyVisitors: number;
+  bounceRate: string;
+  topReferrer: string;
+}
+
+interface AnalyticsApiResponse {
+  visitorData: VisitorData[];
+  deviceData: DeviceData[];
+  pageViewData: PageViewData[];
+  stats: StatsData;
+}
+
+interface SimulatedData {
+  visitorData: VisitorData[];
+  deviceData: DeviceData[];
+  pageViewData: PageViewData[];
+  bounceRate: string;
+  topReferrer: string;
+  lastUpdated: string;
+}
+
 const AnalyticsDashboard = () => {
   // Simple secret-based access
   const [searchParams] = useSearchParams();
   const secretKey = searchParams.get('key');
   
   // State for analytics data
-  const [visitorData, setVisitorData] = useState([]);
-  const [deviceData, setDeviceData] = useState([]);
-  const [pageViewData, setPageViewData] = useState([]);
+  const [visitorData, setVisitorData] = useState<VisitorData[]>([]);
+  const [deviceData, setDeviceData] = useState<DeviceData[]>([]);
+  const [pageViewData, setPageViewData] = useState<PageViewData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState('');
   
   // Stats summary
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<StatsData>({
     totalVisitors: 0,
     averageDailyVisitors: 0,
     bounceRate: '0%',
@@ -48,46 +89,47 @@ const AnalyticsDashboard = () => {
     const fetchAnalyticsData = async () => {
       try {
         setIsLoading(true);
+        setError(null);
         
-        // For demonstration, we're showing how to connect to GA4 API
-        // In a real implementation, you would need to:
-        // 1. Set up a server endpoint that uses the Google Analytics Data API
-        // 2. Make authenticated requests to that endpoint
-        // 3. Process and return the data in the format needed by your charts
+        // Make API request to our backend endpoint
+        // This endpoint will communicate with the Google Analytics API
+        const response = await axios.get<AnalyticsApiResponse>(`/api/analytics/all-data?key=${secretKey}`);
+        const data = response.data;
         
-        // Since we can't directly access GA from the client side due to CORS and auth issues,
-        // you'd typically have a backend service that handles this
+        if (data) {
+          setVisitorData(data.visitorData || []);
+          setDeviceData(data.deviceData || []);
+          setPageViewData(data.pageViewData || []);
+          setStats(data.stats || {
+            totalVisitors: 0,
+            averageDailyVisitors: 0,
+            bounceRate: '0%',
+            topReferrer: 'Direct'
+          });
+          
+          // Set last updated timestamp
+          const now = new Date();
+          setLastUpdated(now.toLocaleString());
+        }
         
-        // This would be your actual API call in production:
-        // const response = await axios.get('/api/analytics/real-time');
-        // const data = response.data;
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Error fetching analytics data:', err);
+        setError('Failed to load analytics data. Using simulation instead.');
+        setIsLoading(false);
         
-        // For now, we'll simulate the data - replace this with actual API calls when ready
-        const simulatedResponse = simulateGoogleAnalyticsData();
-        
-        // Process the data
-        setVisitorData(simulatedResponse.visitorData);
-        setDeviceData(simulatedResponse.deviceData);
-        setPageViewData(simulatedResponse.pageViewData);
-        
-        // Calculate summary statistics
-        const totalVisitors = simulatedResponse.visitorData.reduce(
-          (sum, item) => sum + item.visitors, 0
-        );
-        
-        const avgDaily = Math.round(totalVisitors / simulatedResponse.visitorData.length);
-        
+        // Fallback to simulation if the API fails
+        const simulatedData = simulateGoogleAnalyticsData();
+        setVisitorData(simulatedData.visitorData);
+        setDeviceData(simulatedData.deviceData);
+        setPageViewData(simulatedData.pageViewData);
         setStats({
-          totalVisitors,
-          averageDailyVisitors: avgDaily,
-          bounceRate: simulatedResponse.bounceRate,
-          topReferrer: simulatedResponse.topReferrer
+          totalVisitors: simulatedData.visitorData.reduce((sum, item) => sum + item.visitors, 0),
+          averageDailyVisitors: Math.round(simulatedData.visitorData.reduce((sum, item) => sum + item.visitors, 0) / simulatedData.visitorData.length),
+          bounceRate: simulatedData.bounceRate,
+          topReferrer: simulatedData.topReferrer
         });
-        
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching analytics data:', error);
-        setIsLoading(false);
+        setLastUpdated(simulatedData.lastUpdated);
       }
     };
     
@@ -99,17 +141,17 @@ const AnalyticsDashboard = () => {
     
     // Clean up the interval when component unmounts
     return () => clearInterval(intervalId);
-  }, []);
+  }, [secretKey]);
   
-  // Simulate real-time data - replace with actual API calls in production
-  const simulateGoogleAnalyticsData = () => {
+  // Simulate data as a fallback if the API fails
+  const simulateGoogleAnalyticsData = (): SimulatedData => {
     // Simulate some fluctuation in the data to mimic real-time changes
     const now = new Date();
     const today = now.toLocaleDateString('en-US', { weekday: 'short' });
     const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
     
     // Create visitor data for the past 7 days, with today having real-time updates
-    const visitorData = [
+    const visitorData: VisitorData[] = [
       { date: 'Mon', visitors: Math.floor(Math.random() * 50) + 100 },
       { date: 'Tue', visitors: Math.floor(Math.random() * 50) + 120 },
       { date: 'Wed', visitors: Math.floor(Math.random() * 50) + 150 },
@@ -127,14 +169,14 @@ const AnalyticsDashboard = () => {
     }
     
     // Device data with slight randomness
-    const deviceData = [
+    const deviceData: DeviceData[] = [
       { name: 'Desktop', value: Math.floor(Math.random() * 10) + 50 },
       { name: 'Mobile', value: Math.floor(Math.random() * 10) + 30 },
       { name: 'Tablet', value: Math.floor(Math.random() * 5) + 8 }
     ];
     
     // Page view data with randomness
-    const pageViewData = [
+    const pageViewData: PageViewData[] = [
       { page: '/home', views: Math.floor(Math.random() * 50) + 300 },
       { page: '/courses', views: Math.floor(Math.random() * 40) + 230 },
       { page: '/about', views: Math.floor(Math.random() * 30) + 160 },
@@ -174,6 +216,12 @@ const AnalyticsDashboard = () => {
         </div>
       ) : (
         <>
+          {error && (
+            <div className="mb-4 p-3 bg-red-900/50 text-red-200 rounded-md">
+              {error}
+            </div>
+          )}
+          
           {/* Summary Statistics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-tactical-800 p-4 rounded-lg">
@@ -259,6 +307,9 @@ const AnalyticsDashboard = () => {
             <p>This dashboard is connected to your Google Analytics account.</p>
             <p className="mt-2">Data updates automatically every minute to provide near real-time insights.</p>
             <p className="mt-1 text-tactical-500">Google Analytics Measurement ID: {GA_MEASUREMENT_ID}</p>
+            {lastUpdated && (
+              <p className="mt-1 text-tactical-500">Last updated: {lastUpdated}</p>
+            )}
           </div>
         </>
       )}
